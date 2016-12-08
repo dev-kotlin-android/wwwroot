@@ -26,3 +26,19 @@ function get_rand_char($length){
     }
     return $str;
 }
+
+function imgUrl($img = '') {
+    return '/upload/' . $img;
+}
+
+/**
+ * 分页返回数据统一方法
+ * @author Steed
+ * @param $total_page
+ * @param $total_rows
+ * @param $list
+ * @return array
+ */
+function pageData($total_page, $total_rows, $list) {
+    return ['total_page' => $total_page, 'total_rows' => $total_rows, 'list' => $list];
+}

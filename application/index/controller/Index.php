@@ -1,7 +1,8 @@
 <?php
 namespace app\index\controller;
 
-use app\index\model\Member;
+use app\common\controller\Base;
+use app\common\model\Member;
 
 class Index extends Base {
     protected $is_login = false;
@@ -23,8 +24,8 @@ class Index extends Base {
         //生成token
         $token = $this->request->time() . $data['salt'];
         $data['token'] = sha1(md5($token));
-        $uid = $member_model->addMember($data);
-        $uid && $this->result(['uid' => $uid, 'token' => $data['token']], 1000, '注册成功');
+        $member = $member_model->addMember($data);
+        $member && $this->result(['uid' => $member['uid'], 'token' => $member['token']], 1000, '注册成功');
         $this->result([], 1010, '服务器错误，请重试');
     }
 
