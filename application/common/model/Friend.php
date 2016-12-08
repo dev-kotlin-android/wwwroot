@@ -8,9 +8,13 @@ class Friend extends Model {
 
     public function getList($map = []) {
         $total = $this::where($map)->count(1);
+        $fields = [
+            'friend_id',
+            'notes'
+        ];
         $page = new \page($total);
-        $list = $this::all(function($query) use($map, $page) {
-            $query->where($map)->limit($page->firstRow, $page->listRows);
+        $list = $this::all(function($query) use($map, $page, $fields) {
+            $query->field($fields)->where($map)->limit($page->firstRow, $page->listRows);
         });
         return pageData($page->totalPage, $total, $list);
     }
