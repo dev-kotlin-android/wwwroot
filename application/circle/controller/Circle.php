@@ -7,6 +7,13 @@ use app\common\model\Friend;
 use app\common\model\Member;
 
 class Circle extends Base {
+    /**
+     * 发表朋友圈动态
+     * @author Steed
+     * @param string $title
+     * @param string $content
+     * @param int $type
+     */
     public function release($title = '', $content = '', int $type = 0) {
         empty($type) && $this->result([], 1006, '缺少必要参数');
         $data = [
@@ -32,11 +39,22 @@ class Circle extends Base {
         $this->result([], 1010, '服务器错误，请重试');
     }
 
+    /**
+     * 获取朋友圈动态
+     * @author Steed
+     * @param int $uid
+     */
     public function getCircle(int $uid = 0) {
         $data = empty($uid) ? $this->multiple() : $this->getSingle($uid);
         $this->result($data, 1000, '请求成功');
     }
 
+    /**
+     * 获取单个人的动态
+     * @author Steed
+     * @param $uid
+     * @return array
+     */
     private function getSingle($uid) {
         $where = ['uid' => $uid, 'is_delete' => 0];
         $circle_model = new \app\common\model\Circle();
@@ -55,6 +73,11 @@ class Circle extends Base {
         return $data;
     }
 
+    /**
+     * 获取好友的动态
+     * @author Steed
+     * @return array
+     */
     private function multiple() {
         //获取所有的好友
         $where = ['uid' => $this->member['uid'], 'is_delete' => 0];
