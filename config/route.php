@@ -20,4 +20,6 @@ return [
     'addFriend' => 'friends/friend/add',
     'getFriends' => 'friends/friend/getFriends',
     'delFriend' => 'friends/friend/delFriend',
+    'addCircle' => 'circle/Circle/release',
+    'getCircle' => 'circle/Circle/getCircle',
 ];

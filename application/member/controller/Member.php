@@ -2,6 +2,7 @@
 namespace app\member\controller;
 
 use app\common\controller\Base;
+use app\common\controller\Upload;
 use app\common\model\Friend;
 
 class Member extends Base {
@@ -49,11 +50,13 @@ class Member extends Base {
             $data['salt'] = sha1(get_rand_char(20));
             $data['password'] = md5(sha1($request['password'] . $data['salt']));
         }
+        //上传头像
         if (!empty($this->request->file('logo'))) {
-            $file = $this->request->file('logo');
-            $info = $file->move(ROOT_PATH . 'public' . DS . 'upload');
-            $info || $this->result([], 1012, $file->getError());
-            $data['logo'] = $info->getSaveName();
+            $validate = ['size' => 5242880, 'ext' => 'jpg,png,gif'];
+            $savepath = ROOT_PATH . 'public' . DS . 'upload';
+            $upload = new Upload($this->request->file('logo'), $savepath, $validate);
+            $data['logo'] = $upload->upload();
+            $data['logo'] || $this->result([], 1012, $upload->getError());
         }
         $member_model = new \app\common\model\Member();
         $where = ['uid' => $this->member['uid']];
