@@ -41,6 +41,7 @@ class Index extends Base {
         $token = sha1($this->request->time() . get_rand_char(20));
         false === $member_model->updateMember(['token' => $token], ['uid' => $member['uid']]) && $this->result([], 1010, '服务器错误，请重试');
         $member['token'] = $token;
+        $member['logo'] = imgUrl($member['logo']);
         unset($member['password']);
         unset($member['salt']);
         unset($member['status']);

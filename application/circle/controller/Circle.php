@@ -67,7 +67,7 @@ class Circle extends Base {
         foreach ($data['list'] as $key => $value) {
             $data['list'][$key]['username'] = $member['username'];
             $data['list'][$key]['nickname'] = $member['nickname'];
-            $data['list'][$key]['logo'] = $member['logo'];
+            $data['list'][$key]['logo'] = imgUrl($member['logo']);
             $data['list'][$key]['notes'] = $member['notes'];
         }
         return $data;
@@ -98,7 +98,7 @@ class Circle extends Base {
         foreach ($data['list'] as $key => $value) {
             $data['list'][$key]['username'] = $member[$data['list'][$key]['uid']]['username'];
             $data['list'][$key]['nickname'] = $member[$data['list'][$key]['uid']]['nickname'];
-            $data['list'][$key]['logo'] = $member[$data['list'][$key]['uid']]['logo'];
+            $data['list'][$key]['logo'] = imgUrl($member[$data['list'][$key]['uid']]['logo']);
             $data['list'][$key]['notes'] = $member[$data['list'][$key]['uid']]['notes'];
         }
         return $data;
